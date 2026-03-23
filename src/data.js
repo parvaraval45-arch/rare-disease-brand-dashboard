@@ -125,10 +125,10 @@ export const topPrescribers = [
 
 // Geographic distribution (enhanced with scatter plot data)
 export const regionData = [
-  { region: "Northeast", patients: 312, hcps: 72, avgTTFF: 16, newStartsPerMo: 5.2, color: "#00c2b8" },
-  { region: "Southeast", patients: 278, hcps: 58, avgTTFF: 20, newStartsPerMo: 4.1, color: "#818cf8" },
-  { region: "Midwest", patients: 194, hcps: 44, avgTTFF: 27, newStartsPerMo: 2.8, color: "#f59e0b" },
-  { region: "West", patients: 240, hcps: 65, avgTTFF: 19, newStartsPerMo: 3.7, color: "#f43f5e" },
+  { region: "Northeast", patients: 312, hcps: 72, avgTTFF: 16, newStartsPerMo: 5.2, color: "#0097a7" },
+  { region: "Southeast", patients: 278, hcps: 58, avgTTFF: 20, newStartsPerMo: 4.1, color: "#6366f1" },
+  { region: "Midwest", patients: 194, hcps: 44, avgTTFF: 27, newStartsPerMo: 2.8, color: "#d97706" },
+  { region: "West", patients: 240, hcps: 65, avgTTFF: 19, newStartsPerMo: 3.7, color: "#e11d48" },
 ];
 
 // Key insights for the executive summary

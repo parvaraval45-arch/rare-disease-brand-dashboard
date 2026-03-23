@@ -20,12 +20,18 @@ const TABS = [
   { id: "hcp", label: "HCP Segmentation", icon: Stethoscope },
 ];
 
-const TEAL = "#00c2b8";
-const INDIGO = "#818cf8";
-const AMBER = "#f59e0b";
-const ROSE = "#f43f5e";
-const EMERALD = "#34d399";
-const SLATE = "#94a3b8";
+const TEAL = "#0097a7";
+const INDIGO = "#6366f1";
+const AMBER = "#d97706";
+const ROSE = "#e11d48";
+const EMERALD = "#059669";
+const SLATE = "#64748b";
+
+// Chart styling constants for light theme
+const AXIS_LABEL_FILL = "#64748b";
+const GRID_STROKE = "rgba(0,0,0,0.06)";
+const TICK_STYLE = { fill: AXIS_LABEL_FILL, fontSize: 11 };
+const TICK_LABEL = { fill: "#475569", fontSize: 12 };
 const CHART_COLORS = [TEAL, INDIGO, AMBER, ROSE, EMERALD, SLATE];
 
 function MetricCard({ label, value, subtext, trend, icon: Icon }) {
@@ -163,10 +169,10 @@ function OverviewTab() {
                   <stop offset="100%" stopColor={TEAL} stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-              <XAxis dataKey="month" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis yAxisId="left" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis yAxisId="right" orientation="right" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={GRID_STROKE} />
+              <XAxis dataKey="month" tick={TICK_STYLE} axisLine={false} tickLine={false} />
+              <YAxis yAxisId="left" tick={TICK_STYLE} axisLine={false} tickLine={false} />
+              <YAxis yAxisId="right" orientation="right" tick={TICK_STYLE} axisLine={false} tickLine={false} />
               <Tooltip content={<CustomTooltip />} />
               <Area yAxisId="left" type="monotone" dataKey="totalPatients" stroke={TEAL} fill="url(#tealGrad)" name="Total Patients" strokeWidth={2} />
               <Bar yAxisId="right" dataKey="newStarts" fill={INDIGO} name="New Starts" radius={[3, 3, 0, 0]} barSize={20} />
@@ -177,9 +183,9 @@ function OverviewTab() {
           <h3>Market Share Trend</h3>
           <ResponsiveContainer width="100%" height={280}>
             <LineChart data={data.monthlyPerformance}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-              <XAxis dataKey="month" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis domain={[0.55, 0.75]} tickFormatter={(v) => `${(v * 100).toFixed(0)}%`} tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={GRID_STROKE} />
+              <XAxis dataKey="month" tick={TICK_STYLE} axisLine={false} tickLine={false} />
+              <YAxis domain={[0.55, 0.75]} tickFormatter={(v) => `${(v * 100).toFixed(0)}%`} tick={TICK_STYLE} axisLine={false} tickLine={false} />
               <Tooltip content={<CustomTooltip formatter={(v) => `${(v * 100).toFixed(1)}%`} />} />
               <Line type="monotone" dataKey="marketShare" stroke={TEAL} strokeWidth={2.5} dot={{ r: 3, fill: TEAL }} name="Market Share" />
               <ReferenceLine y={0.70} stroke={EMERALD} strokeDasharray="6 4" label={{ value: "Target: 70%", fill: EMERALD, fontSize: 11, position: "insideTopLeft" }} />
@@ -273,9 +279,9 @@ function JourneyTab() {
           <h3>Time to First Fill Distribution</h3>
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={data.ttffDistribution}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-              <XAxis dataKey="range" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={GRID_STROKE} />
+              <XAxis dataKey="range" tick={TICK_STYLE} axisLine={false} tickLine={false} />
+              <YAxis tick={TICK_STYLE} axisLine={false} tickLine={false} />
               <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="count" name="Patients" radius={[4, 4, 0, 0]}>
                 {data.ttffDistribution.map((_, i) => (
@@ -296,9 +302,9 @@ function JourneyTab() {
                   <stop offset="100%" stopColor={INDIGO} stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-              <XAxis dataKey="month" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} label={{ value: "Months on Therapy", position: "insideBottom", offset: -5, fill: "#64748b", fontSize: 11 }} />
-              <YAxis domain={[0.5, 1.05]} tickFormatter={(v) => `${(v * 100).toFixed(0)}%`} tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={GRID_STROKE} />
+              <XAxis dataKey="month" tick={TICK_STYLE} axisLine={false} tickLine={false} label={{ value: "Months on Therapy", position: "insideBottom", offset: -5, fill: AXIS_LABEL_FILL, fontSize: 11 }} />
+              <YAxis domain={[0.5, 1.05]} tickFormatter={(v) => `${(v * 100).toFixed(0)}%`} tick={TICK_STYLE} axisLine={false} tickLine={false} />
               <Tooltip content={<CustomTooltip formatter={(v) => `${(v * 100).toFixed(1)}%`} />} />
               <Area type="monotone" dataKey="pct" stroke={INDIGO} fill="url(#persistGrad)" strokeWidth={2.5} name="Persistence %" />
               <ReferenceLine y={0.80} stroke={AMBER} strokeDasharray="6 4" label={{ value: "80% threshold", fill: AMBER, fontSize: 11, position: "insideTopLeft" }} />
@@ -311,9 +317,9 @@ function JourneyTab() {
         <h3>PDC Distribution — Active Patient Population</h3>
         <ResponsiveContainer width="100%" height={260}>
           <BarChart data={data.pdcDistribution}>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-            <XAxis dataKey="range" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke={GRID_STROKE} />
+            <XAxis dataKey="range" tick={TICK_STYLE} axisLine={false} tickLine={false} />
+            <YAxis tick={TICK_STYLE} axisLine={false} tickLine={false} />
             <Tooltip content={<CustomTooltip />} />
             <Bar dataKey="count" name="Patients" radius={[4, 4, 0, 0]}>
               {data.pdcDistribution.map((entry, i) => (
@@ -355,9 +361,9 @@ function AccessTab() {
           <h3>PA Approval &amp; Appeal Success by Payer</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={payerChartData} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-              <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis dataKey="name" type="category" width={110} tick={{ fill: "#e2e8f0", fontSize: 12 }} axisLine={false} tickLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={GRID_STROKE} />
+              <XAxis type="number" domain={[0, 100]} tickFormatter={(v) => `${v}%`} tick={TICK_STYLE} axisLine={false} tickLine={false} />
+              <YAxis dataKey="name" type="category" width={110} tick={TICK_LABEL} axisLine={false} tickLine={false} />
               <Tooltip content={<CustomTooltip formatter={(v) => `${v}%`} />} />
               <Bar dataKey="approval" name="PA Approval %" fill={TEAL} radius={[0, 4, 4, 0]} barSize={16} />
               <Bar dataKey="appeal" name="Appeal Success %" fill={INDIGO} radius={[0, 4, 4, 0]} barSize={16} />
@@ -368,9 +374,9 @@ function AccessTab() {
           <h3>Avg TTFF by Payer (Days)</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={payerChartData} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-              <XAxis type="number" domain={[0, 40]} tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis dataKey="name" type="category" width={110} tick={{ fill: "#e2e8f0", fontSize: 12 }} axisLine={false} tickLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={GRID_STROKE} />
+              <XAxis type="number" domain={[0, 40]} tick={TICK_STYLE} axisLine={false} tickLine={false} />
+              <YAxis dataKey="name" type="category" width={110} tick={TICK_LABEL} axisLine={false} tickLine={false} />
               <Tooltip content={<CustomTooltip formatter={(v) => `${v} days`} />} />
               <Bar dataKey="ttff" name="Avg TTFF" radius={[0, 4, 4, 0]} barSize={20}>
                 {payerChartData.map((entry, i) => (
@@ -387,9 +393,9 @@ function AccessTab() {
           <h3>Top Denial Reasons</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={data.denialReasons} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-              <XAxis type="number" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis dataKey="reason" type="category" width={180} tick={{ fill: "#e2e8f0", fontSize: 11 }} axisLine={false} tickLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={GRID_STROKE} />
+              <XAxis type="number" tick={TICK_STYLE} axisLine={false} tickLine={false} />
+              <YAxis dataKey="reason" type="category" width={180} tick={TICK_LABEL} axisLine={false} tickLine={false} />
               <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="count" name="Denials" fill={ROSE} radius={[0, 4, 4, 0]} barSize={18}>
                 {data.denialReasons.map((_, i) => (
@@ -407,7 +413,7 @@ function AccessTab() {
                 {data.payerMix.map((_, i) => (<Cell key={i} fill={CHART_COLORS[i]} />))}
               </Pie>
               <Tooltip content={<CustomTooltip />} />
-              <Legend verticalAlign="bottom" iconType="circle" wrapperStyle={{ fontSize: 12, color: "#94a3b8" }} />
+              <Legend verticalAlign="bottom" iconType="circle" wrapperStyle={{ fontSize: 12, color: "#64748b" }} />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -432,9 +438,9 @@ function AccessTab() {
                   <stop offset="100%" stopColor={EMERALD} stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-              <XAxis dataKey="month" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis domain={[0.70, 0.90]} tickFormatter={(v) => `${(v * 100).toFixed(0)}%`} tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={GRID_STROKE} />
+              <XAxis dataKey="month" tick={TICK_STYLE} axisLine={false} tickLine={false} />
+              <YAxis domain={[0.70, 0.90]} tickFormatter={(v) => `${(v * 100).toFixed(0)}%`} tick={TICK_STYLE} axisLine={false} tickLine={false} />
               <Tooltip content={<CustomTooltip formatter={(v) => `${(v * 100).toFixed(0)}%`} />} />
               <Area type="monotone" dataKey="rate" stroke={EMERALD} fill="url(#copayGrad)" strokeWidth={2.5} name="Enrollment Rate" />
             </AreaChart>
@@ -444,9 +450,9 @@ function AccessTab() {
           <h3>Patient OOP Distribution (After Assistance)</h3>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={fa.oopDistribution}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-              <XAxis dataKey="range" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={GRID_STROKE} />
+              <XAxis dataKey="range" tick={TICK_STYLE} axisLine={false} tickLine={false} />
+              <YAxis tick={TICK_STYLE} axisLine={false} tickLine={false} />
               <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="patients" name="Patients" radius={[4, 4, 0, 0]}>
                 {fa.oopDistribution.map((_, i) => (
@@ -533,7 +539,7 @@ function HCPTab() {
                 {data.hcpSegments.map((_, i) => (<Cell key={i} fill={CHART_COLORS[i]} />))}
               </Pie>
               <Tooltip content={<CustomTooltip />} />
-              <Legend verticalAlign="bottom" iconType="circle" wrapperStyle={{ fontSize: 12, color: "#94a3b8" }} />
+              <Legend verticalAlign="bottom" iconType="circle" wrapperStyle={{ fontSize: 12, color: "#64748b" }} />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -541,9 +547,9 @@ function HCPTab() {
           <h3>Avg PDC by Tier</h3>
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={data.hcpSegments.map((s) => ({ name: s.tier.split(" — ")[0], pdc: +(s.avgPDC * 100).toFixed(0) }))}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-              <XAxis dataKey="name" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis domain={[65, 95]} tickFormatter={(v) => `${v}%`} tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={GRID_STROKE} />
+              <XAxis dataKey="name" tick={TICK_STYLE} axisLine={false} tickLine={false} />
+              <YAxis domain={[65, 95]} tickFormatter={(v) => `${v}%`} tick={TICK_STYLE} axisLine={false} tickLine={false} />
               <Tooltip content={<CustomTooltip formatter={(v) => `${v}%`} />} />
               <Bar dataKey="pdc" name="Avg PDC" radius={[4, 4, 0, 0]} barSize={40}>
                 {data.hcpSegments.map((s, i) => (<Cell key={i} fill={s.avgPDC >= 0.85 ? EMERALD : s.avgPDC >= 0.80 ? AMBER : ROSE} />))}
@@ -580,18 +586,18 @@ function HCPTab() {
         <p className="card-subtitle">Bubble size = total patients. Midwest shows high TTFF with low new starts — potential access barrier.</p>
         <ResponsiveContainer width="100%" height={340}>
           <ScatterChart margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+            <CartesianGrid strokeDasharray="3 3" stroke={GRID_STROKE} />
             <XAxis
               type="number" dataKey="avgTTFF" name="Avg TTFF (days)"
               domain={[12, 32]}
-              tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false}
-              label={{ value: "Avg TTFF (days) →", position: "insideBottom", offset: -10, fill: "#64748b", fontSize: 11 }}
+              tick={TICK_STYLE} axisLine={false} tickLine={false}
+              label={{ value: "Avg TTFF (days) →", position: "insideBottom", offset: -10, fill: AXIS_LABEL_FILL, fontSize: 11 }}
             />
             <YAxis
               type="number" dataKey="newStartsPerMo" name="New Starts/Mo"
               domain={[1.5, 6.5]}
-              tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false}
-              label={{ value: "New Starts/Mo →", angle: -90, position: "insideLeft", offset: 10, fill: "#64748b", fontSize: 11 }}
+              tick={TICK_STYLE} axisLine={false} tickLine={false}
+              label={{ value: "New Starts/Mo →", angle: -90, position: "insideLeft", offset: 10, fill: AXIS_LABEL_FILL, fontSize: 11 }}
             />
             <ZAxis type="number" dataKey="patients" range={[200, 800]} name="Patients" />
             <Tooltip content={<ScatterTooltip />} />
@@ -601,8 +607,8 @@ function HCPTab() {
               ))}
             </Scatter>
             {/* quadrant guide lines */}
-            <ReferenceLine x={21} stroke="rgba(255,255,255,0.08)" strokeDasharray="4 4" />
-            <ReferenceLine y={3.8} stroke="rgba(255,255,255,0.08)" strokeDasharray="4 4" />
+            <ReferenceLine x={21} stroke="rgba(0,0,0,0.08)" strokeDasharray="4 4" />
+            <ReferenceLine y={3.8} stroke="rgba(0,0,0,0.08)" strokeDasharray="4 4" />
           </ScatterChart>
         </ResponsiveContainer>
         {/* Region labels below chart */}
